@@ -19,7 +19,8 @@ ENTITY Instr_Fetch IS
 		IMEM_addr 	: OUT addr_bus;
 		IMEM_rd 		: OUT bit;
 		PC_out		: OUT read_data;
-		data_out 	: OUT read_data
+		data_out 	: OUT read_data;
+      state       : OUT States
 	);
 END Instr_Fetch;
 
@@ -28,14 +29,16 @@ ARCHITECTURE behav OF Instr_Fetch IS
 	signal PC: addr_bus;
 begin
 	state_control : ENTITY work.IF_State(behav)
-		PORT MAP (ID_State, ID_Halt, step, reset, s);
+		PORT MAP (ID_State, ID_Halt, step, reset, clk, s);
 		
 	mem_acc : ENTITY work.IF_Bus(behav)
 		PORT MAP (PC, s, step, reset, error, IMEM_rd, IMEM_addr);
 			
 	out_reg : ENTITY work.IF_Out(behav)
-		PORT MAP (PC, s, step, IMEM_data, PC_out, data_out);
+		PORT MAP (PC, clk, s, step, IMEM_data, PC_out, data_out);
 			
 	prog_count : ENTITY work.Prog_Count(behav)
 		PORT MAP (s, step, reset, clk, flush, PC_new, error_of, PC);
+      
+   state <= s;
 END behav;

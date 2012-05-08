@@ -5,8 +5,7 @@ USE ieee.std_logic_signed.all;
 USE work.const.all;
 
 ENTITY IF_Bus IS
-    PORT(
-			curr_PC 	: IN addr_bus;
+    PORT(curr_PC 	: IN addr_bus;
 			state		: IN States;
 			step 		: IN PL_cycles_range;
 			reset		: IN std_logic;
@@ -17,7 +16,7 @@ END IF_Bus;
 
 ARCHITECTURE behav OF IF_Bus IS
 BEGIN
-	PROCESS(step, reset, error, state)
+	PROCESS(step, reset, error, state, curr_PC)
 	BEGIN
 		if(reset = '1' or error='1') then
 			IB_Read <= '0';
