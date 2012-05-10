@@ -40,7 +40,7 @@ BEGIN
       PORT MAP (clk, reset, step, ID_State, PC_ID, out_rs1_val, out_rs2_val, imm_val, instr_parts_ID, EX_State, flush, jmp, error_EX, PC_EX, out_ALU, PC_new, out_rs2_val_EX, instr_parts_EX);
    
    memory : ENTITY work.MEMory(behav)
-      PORT MAP (clk, reset, step, EX_State, PC_EX, out_ALU, DM_data, out_rs2_val_EX, instr_parts_EX, error, MEM_State, DM_read, DM_write, DM_addr, out_result, DM_data);
+      PORT MAP (clk, reset, step, EX_State, PC_EX, out_ALU, out_rs2_val_EX, instr_parts_EX, error, MEM_State, DM_read, DM_write, DM_addr, out_result, DM_data);
    
    write_back : ENTITY work.WB_State(behav)
       PORT MAP (step, reset, clk, MEM_State, WB_State);   

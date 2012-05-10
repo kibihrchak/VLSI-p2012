@@ -8,7 +8,7 @@ ENTITY MEMory IS
    PORT (clk, reset                    : IN std_logic;
          step                          : IN PL_cycles_range;
          EX_State                      : IN States;
-         PC, ALU_out, data_out, rs2_val: IN data_bus;
+         PC, ALU_out, rs2_val: IN data_bus;
          instr_parts                   : IN std_logic_vector(3 downto 0);
          error                         : IN bit;
          MEM_State                     : OUT States;
