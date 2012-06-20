@@ -48,6 +48,10 @@ package memory_package is
       constant addr_width: in positive := abus_width;
       constant dbus_width: in positive := dbus_width);
 
+  -- used so that components that use clock through some component still
+  --   can pick proper value
+  constant mem_delay : time := 1 ns;
+  
 end package memory_package;
 
 package body memory_package is

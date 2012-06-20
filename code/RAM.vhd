@@ -56,9 +56,9 @@ begin
   begin
     if (output_enabled = '1') then
       -- verification mode reading
-      data_out <= mem(to_integer(signed(addr)));
+      data_out <= mem(to_integer(signed(addr))) after mem_delay;
     else
-      data_out <= (others => 'Z');
+      data_out <= (others => 'Z') after mem_delay;
     end if;
   end process output;
 
@@ -72,7 +72,7 @@ begin
     -- write operation will cycle in following loop
     loop
       if (en = '1' and wr = '1' and rising_edge(clk)) then
-        mem(to_integer(signed(addr))) <= data_in;
+        mem(to_integer(signed(addr))) <= data_in after mem_delay;
       end if;
 
       wait on clk, en, wr, addr;

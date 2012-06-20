@@ -29,9 +29,9 @@ begin
       if (rising_edge(clk)) then
         -- synchronous response
         if (rd = '1') then
-          data_out <= mem(to_integer(signed(addr)));
+          data_out <= mem(to_integer(signed(addr))) after mem_delay;
         else
-          data_out <= (others => 'Z');
+          data_out <= (others => 'Z') after mem_delay;
         end if;
       end if;
     end if;
