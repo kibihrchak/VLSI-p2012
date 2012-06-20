@@ -5,11 +5,11 @@ USE ieee.std_logic_signed.all;
 USE work.const.all;
 
 ENTITY EX_State IS
-   PORT( step     : IN PL_cycles_range;
-         reset, clk    : IN std_logic;
-         ID_State : IN States;
-         state    : OUT States
-        );
+PORT(   step     	: IN PL_cycles_range;
+        reset, clk  : IN std_logic;
+        ID_State 	: IN States;
+        state    	: OUT States
+    );
 END EX_State;
 
 architecture behav of EX_State is
@@ -40,7 +40,7 @@ begin
             onoff_ctrl <= '0';
          end if;
 		else
-			if (step = PL_cycles_range'high and ID_State = States'(StateOFF)) then
+			if (step = PL_cycles_range'high and ID_State /= States'(StateON)) then
 				onoff_ctrl <= '0';
 			else
 				onoff_ctrl <= '1';

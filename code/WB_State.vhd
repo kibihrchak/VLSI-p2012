@@ -5,10 +5,10 @@ USE ieee.std_logic_signed.all;
 USE work.const.all;
 
 ENTITY WB_State IS
-   PORT( step     : IN PL_cycles_range;
-         reset, clk    : IN std_logic;
-         MEM_State : IN States;
-         state    : OUT States
+   PORT( step     	: IN PL_cycles_range;
+         reset, clk	: IN std_logic;
+         MEM_State 	: IN States;
+         state    	: OUT States
         );
 END WB_State;
 

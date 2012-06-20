@@ -4,94 +4,81 @@ use ieee.std_logic_arith.all;
 
 use work.stackpkg.all;
 
-entity Stack is
-  port (
-    clk : in std_logic;
-    reset : in std_logic;
-
-    pop : in std_logic;
-    push_rst : in std_logic;
-    data_in : in data;
-    
-    error_stack : out std_logic;
-    avail : out std_logic;
-    data_out : out data
+ENTITY Stack IS
+PORT(   clk, reset, pop, push_rst   : IN std_logic;
+        data_in                     : IN data;
+        error_stack                 : OUT bit; 
+        avail                       : OUT std_logic;
+        data_out                    : OUT data
   );
-end entity Stack;
+end Stack;
 
-architecture behavioral of Stack is
-  type st_mem_type is array (0 to stack_size - 1) of data;
-  signal st_mem : st_mem_type;
-
-  signal SP : sp_type;
-  signal stack_empty : bit;
-
-  signal avail_cntr: availcount;
-begin
-  err_proc : process (SP, stack_empty, push_rst, pop) is
-  begin
-    error_stack <= '0';
-
-    if (push_rst = '1' and SP = sp_type'high) then
-      error_stack <= '1';
-    end if;
-
-    if (pop = '1' and stack_empty = '1') then
-      error_stack <= '1';
-    end if;
-  end process err_proc;
-
-
-  avail_check : process (avail_cntr) is
-  begin
-    if (avail_cntr <= 1) then
-      avail <= '1';
-    else
-      avail <= '0';
-    end if;
-  end process avail_check;
-
-
-  st_ctrl : process (clk, reset, pop, avail_cntr, data_in) is
-  begin
-    if (reset = '1') then
-      stack_empty <= '1';
-      SP <= 0;
-    elsif (rising_edge(clk)) then
-      if (avail_cntr = 1) then
-        if (stack_empty = '1') then
-          stack_empty <= '0';
-          st_mem(0) <= data_in;
-        else
-          st_mem(SP + 1) <= data_in;
-          SP <= SP + 1;
+ARCHITECTURE behav of Stack IS
+    TYPE st_mem_type IS ARRAY (0 to stack_size - 1) of data;
+    SIGNAL st_mem : st_mem_type;
+    SIGNAL SP : sp_type;
+    SIGNAL stack_empty : bit;
+    SIGNAL avail_cntr: availcount;
+BEGIN
+    err_proc : PROCESS (SP, stack_empty, push_rst, pop) IS
+    BEGIN
+        error_stack <= '0';
+        if (push_rst = '1' and SP = sp_type'high) then
+            error_stack <= '1';
         end if;
-      elsif (pop = '1') then
-        if (SP = 0) then
-          stack_empty <= '1';
-        else
-          SP <= SP - 1;
+        if (pop = '1' and stack_empty = '1') then
+            error_stack <= '1';
         end if;
-      end if;
-    end if;
-  end process st_ctrl;
+    end PROCESS err_proc;
+
+    avail_check : PROCESS (avail_cntr) IS
+    BEGIN
+        if (avail_cntr <= 1) then
+            avail <= '1';
+        else
+            avail <= '0';
+        end if;
+    end PROCESS avail_check;
+
+    st_ctrl : PROCESS (clk, reset, pop, avail_cntr, data_in) IS
+    BEGIN
+        if (reset = '1') then
+            stack_empty <= '1';
+            SP <= 0;
+        elsif (rising_edge(clk)) then
+            if (avail_cntr = 1) then
+                if (stack_empty = '1') then
+                    stack_empty <= '0';
+                    st_mem(0) <= data_in;
+                else
+                    st_mem(SP + 1) <= data_in;
+                    SP <= SP + 1;
+                end if;
+            elsif (pop = '1') then
+                if (SP = 0) then
+                    stack_empty <= '1';
+                else
+                    SP <= SP - 1;
+                end if;
+            end if;
+        end if;
+    end PROCESS st_ctrl;
   
 
-  cntr_ctrl : process (clk, reset, push_rst) is
-  begin
-    if (reset = '1') then
-      avail_cntr <= 0;
-    elsif (rising_edge(clk)) then
-      if (push_rst = '1') then
-        avail_cntr <= availcount'high;
-      else
-        if (avail_cntr > 0) then
-          avail_cntr <= avail_cntr - 1;
+    cntr_ctrl : PROCESS (clk, reset, push_rst) IS
+    BEGIN
+        if (reset = '1') then
+            avail_cntr <= 0;
+        elsif (rising_edge(clk)) then
+            if (push_rst = '1') then
+                avail_cntr <= availcount'high;
+            else
+                if (avail_cntr > 0) then
+                    avail_cntr <= avail_cntr - 1;
+                end if;
+            end if;
         end if;
-      end if;
-    end if;
-  end process cntr_ctrl;
+    end PROCESS cntr_ctrl;
 
-
-  data_out <= st_mem(SP);
-end architecture behavioral;
+    data_out <= st_mem(SP);
+end ARCHITECTURE behav;

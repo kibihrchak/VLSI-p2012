@@ -5,23 +5,23 @@ USE ieee.std_logic_signed.all;
 USE work.const.all;
 
 ENTITY Instr_Fetch IS
-	PORT (
-		clk 			: IN std_logic;
-		step 			: IN PL_cycles_range;
-		reset 		: IN std_logic;
-		ID_State 	: IN States;
-		ID_Halt		: IN bit;
-		IMEM_data 	: IN data_bus;
-		flush			: IN std_logic;
-		PC_new		: IN addr_bus;
-		error			: IN bit;
-		error_of		: OUT bit;
-		IMEM_addr 	: OUT addr_bus;
-		IMEM_rd 		: OUT bit;
-		PC_out		: OUT read_data;
-		data_out 	: OUT read_data;
-      state       : OUT States
-	);
+PORT (
+    clk 			: IN std_logic;
+    step 			: IN PL_cycles_range;
+    reset 		    : IN std_logic;
+    ID_State 	    : IN States;
+    ID_Halt		    : IN bit;
+    IMEM_data 	    : IN data_bus;
+    flush			: IN bit;
+    PC_new		    : IN addr_bus;
+    error			: IN bit;
+    error_of		: OUT bit;
+    IMEM_addr 	    : OUT addr_bus;
+    IMEM_rd 		: OUT std_logic;
+    PC_out		    : OUT read_data;
+    data_out 	    : OUT read_data;
+    state           : OUT States
+);
 END Instr_Fetch;
 
 ARCHITECTURE behav OF Instr_Fetch IS

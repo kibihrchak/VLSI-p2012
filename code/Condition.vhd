@@ -5,10 +5,10 @@ USE ieee.std_logic_signed.all;
 USE work.const.all;
 
 ENTITY Condition IS
-    PORT(rs1_val, rs2_val  : IN data_bus;
-         instr_parts       : IN std_logic_vector(13 downto 0);
-         flush             : OUT std_logic
-			);
+PORT(rs1_val, rs2_val  : IN data_bus;
+     instr_parts       : IN std_logic_vector(13 downto 0);
+     flush             : OUT bit
+);
 END Condition;
 
 ARCHITECTURE behav OF Condition IS
@@ -56,6 +56,7 @@ BEGIN
                         else 
                            flush <= '0';
                         end if;
+         WHEN OTHERS => null;
       end CASE;
 	END PROCESS;
 END behav;

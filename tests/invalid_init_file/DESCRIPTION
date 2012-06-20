@@ -1,0 +1,14 @@
+# Invalid memory initialization file test
+
+Expected outcome:
+
+-   Lines 2, 3, 4, 6 and 8 are invalid.
+
+
+Tested cases:
+
+-   Line has additional characters.
+-   Data part is truncated.
+-   Data part has invalid digits.
+-   Address part has invalid digits.
+-   Address part is truncated.

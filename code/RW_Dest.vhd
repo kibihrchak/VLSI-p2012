@@ -5,11 +5,11 @@ USE ieee.std_logic_signed.all;
 USE work.const.all;
 
 ENTITY RW_Dest IS
-    PORT(step 			: IN PL_cycles_range;
-			state			: IN States;
-         dst_rd_wr   : IN std_logic;
-         rd_rst      : OUT std_logic
-         );
+PORT(   step 		: IN PL_cycles_range;
+		state		: IN States;
+        dst_rd_wr   : IN std_logic;
+        rd_rst      : OUT std_logic
+);
 END RW_Dest;
 
 architecture behav of RW_Dest is

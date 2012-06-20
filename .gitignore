@@ -1,3 +1,6 @@
-
+/modelsim/*
+!/modelsim/MODELSIM WORK DIRECTORY
+/quartus/*
+!/quartus/QUARTUS WORK DIRECTORY
 /quartus
-/modelsim
+*.swp

@@ -5,16 +5,16 @@ USE ieee.std_logic_signed.all;
 USE work.const.all;
 
 ENTITY Data_Mem IS
-    PORT(error       : IN bit;
-			step 		   : IN PL_cycles_range;
-         state		   : IN States;
-         ALU_out     : IN data_bus;
+    PORT(   error       : IN bit;
+            step 		: IN PL_cycles_range;
+            state		: IN States;
+            ALU_out     : IN data_bus;
 			rs2_val     : IN data_bus;
-         instr_parts : IN std_logic_vector(3 downto 0);
+            instr_parts : IN std_logic_vector(3 downto 0);
 			DM_read     : OUT std_logic;
-         DM_write    : OUT std_logic;
-         DM_addr     : OUT addr_bus;
-         DM_data     : OUT data_bus
+            DM_write    : OUT std_logic;
+            DM_addr     : OUT addr_bus;
+            DM_data     : OUT data_bus
          );
 END Data_Mem;
 

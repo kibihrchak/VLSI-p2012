@@ -5,17 +5,18 @@ USE ieee.std_logic_signed.all;
 USE work.const.all;
 
 ENTITY IF_State IS
-    PORT(ID_State		: IN States;
-			ID_Halt		: IN bit;
-			step 			: IN PL_cycles_range;
-			reset, clk 	: IN std_logic;
-			state			: OUT States);
+PORT(   ID_State	: IN States;
+        ID_Halt		: IN bit;
+        step 		: IN PL_cycles_range;
+        reset, clk 	: IN std_logic;
+        state		: OUT States
+    );
 END IF_State;
 
 architecture behav of IF_state is
-	signal onoff 		: std_logic;
-	signal onoff_ctrl : std_logic;
-	signal s : States;
+	signal onoff 		: bit;
+	signal onoff_ctrl   : bit;
+	signal s            : States;
 begin
 	-- on off switch
 	onoff_switch : process(clk, reset, onoff_ctrl) is

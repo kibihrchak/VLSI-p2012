@@ -5,10 +5,10 @@ USE ieee.std_logic_signed.all;
 USE work.const.all;
 
 ENTITY MEM_State IS
-   PORT( step     : IN PL_cycles_range;
-         reset, clk    : IN std_logic;
-         EX_State : IN States;
-         state    : OUT States
+   PORT( step     	: IN PL_cycles_range;
+         reset, clk 	: IN std_logic;
+         EX_State 	: IN States;
+         state    	: OUT States
         );
 END MEM_State;
 
@@ -30,17 +30,6 @@ begin
 		end if;
 	end process;
    
-   -- onoff control
---   state_switch : process(s, onoff, step) is
---   begin
---      if (onoff = '0' or (MEM_State = States'(StateOFF))) then
---         onoff_ctrl <= '0';
---      else
---         onoff_ctrl <= '1';
---      end if;
---   end process;
-   
-   
   	state_switch : process(onoff, step, EX_State) is
 	begin
 		-- onoff control
@@ -58,8 +47,6 @@ begin
 			end if;
 		end if;
 	end process;
-  
-  
    
    -- state control   
 	state_control : process(onoff) is
